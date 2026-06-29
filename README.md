@@ -5,6 +5,7 @@ Repo for the `GitHub Actions Fundamentals` training.
 ## Triggers
 
 - Normal
+- Skip ci
 
 ## 👉 Objectives
 
