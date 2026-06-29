@@ -1,0 +1,28 @@
+name: GitHub Actions Demo - lab 2
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - ".github/**"
+
+  workflow_dispatch:
+    inputs:
+      who-to-greet:
+        description: "Who to greet"
+        required: true
+        default: "World"
+
+jobs:
+  greet:
+    name: Greet
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Greet someone
+        uses: ./hello-world-docker-action
+        id: greet
+        with:
+          who-to-greet: ${{ github.event.inputs.who-to-greet }}
+      - name: Show the time
+        run: echo "The time we greeted you was ${{ steps.greet.outputs.time }}"
