@@ -1,0 +1,27 @@
+name: GitHub Actions Demo - lab 4 reusable
+
+on:
+  workflow_call:
+    inputs:
+      who-to-greet:
+        description: "Who to greet"
+        required: true
+        type: string
+        default: "World"
+    outputs:
+      current-time:
+        description: "The time when greeting."
+        value: ${{ jobs.reusable-job.outputs.current-time }}
+
+jobs:
+  reusable-job:
+    name: Reusable Job
+    runs-on: ubuntu-latest
+    outputs:
+      current-time: ${{ steps.time.outputs.time }}
+    steps:
+      - name: Greet
+        run: echo "Hello ${{ inputs.who-to-greet }}"
+      - name: Set time
+        run: echo "time=$(date)" >> $GITHUB_OUTPUT
+        id: time
