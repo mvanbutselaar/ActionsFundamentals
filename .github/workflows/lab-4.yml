@@ -17,13 +17,14 @@ jobs:
     steps:
       - run: echo "The time we greeted you was ${{ needs.call-workflow.outputs.current-time }}"
 
-  call-and-use:
-    name: Call and use Reusable Workflow
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: ./.github/workflows/lab-4-reusable.yml
-        with:
-          who-to-greet: Marijn 2
-        id: call-and-use
-      - run: echo "The time we greeted you was ${{ steps.call-and-use.outputs.current-time }}"
+  # Does not work, as the `uses:` on job level is a workflow, the `uses:` on step is an action.
+#   call-and-use:
+#     name: Call and use Reusable Workflow
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v7
+#       - uses: ./.github/workflows/lab-4-reusable.yml
+#         with:
+#           who-to-greet: Marijn 2
+#         id: call-and-use
+#       - run: echo "The time we greeted you was ${{ steps.call-and-use.outputs.current-time }}"
